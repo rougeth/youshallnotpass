@@ -27,7 +27,7 @@ SECRET_KEY = '(m9mn*qxuzqgw#unr3x#9zvpu3c)#%$oo^=0yva6f0onz26-4l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'social_django',
 
     'account',
+    'hook',
     'webapp',
 ]
 
@@ -115,7 +116,7 @@ LOGIN_REDIRECT_URL = '/repos'
 GITHUB_API_URL = 'https://api.github.com'
 SOCIAL_AUTH_GITHUB_KEY = config('GITHUB_KEY', default='')
 SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_SECRET', default='')
-SOCIAL_AUTH_GITHUB_SCOPE = []
+SOCIAL_AUTH_GITHUB_SCOPE = ['repo', 'admin:repo_hook']
 
 AUTH_USER_MODEL = 'account.User'
 
