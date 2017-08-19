@@ -1,0 +1,7 @@
+repos:
+
+<url>
+{% for repo in repos %}
+<li>{{ repo.full_name }} <a href='#'>active</a></li>
+{% endfor%}
+</url>

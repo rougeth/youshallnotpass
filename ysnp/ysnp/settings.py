@@ -112,6 +112,7 @@ LOGIN_URL = 'account_login'
 LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = '/repos'
 
+GITHUB_API_URL = 'https://api.github.com'
 SOCIAL_AUTH_GITHUB_KEY = config('GITHUB_KEY', default='')
 SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_SECRET', default='')
 SOCIAL_AUTH_GITHUB_SCOPE = []

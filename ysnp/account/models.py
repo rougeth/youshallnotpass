@@ -53,7 +53,7 @@ class User(AbstractBaseUser):
                 return social_user
 
     @property
-    def get_github_headers(self):
+    def github_headers(self):
         return {
             'Authorization': 'token ' + self.github_social_user.access_token,
             'Accept': 'application/vnd.github.v3+json'
