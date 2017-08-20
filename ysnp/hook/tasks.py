@@ -67,7 +67,7 @@ def setup_hook(user_id, repo_id):
     data = {
         'name': 'web',
         'config': {
-            'url': 'https://e2a6da2d.ngrok.io/hook/pullrequest',
+            'url': 'https://ec49244a.ngrok.io/hook/pullrequest',
             'content_type': 'json',
         },
         'events': ['pull_request', 'pull_request_review'],
@@ -78,7 +78,7 @@ def setup_hook(user_id, repo_id):
 
     logger.info('Status code: %s' % response.status_code)
 
-    if response.status_code != 200:
+    if response.status_code != 201:
         logger.info('Error: %s' % hook)
         return
 

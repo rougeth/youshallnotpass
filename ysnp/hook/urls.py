@@ -5,7 +5,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^setup/(?P<owner>[\w\d\_\-\.]+)/(?P<repo>[\w\d\_\-\.]+)/$',
-        views.setup_hook, name='hook_setup'),
+    url(r'^setup/(?P<hash>[\w\d]{8})/$', views.setup_hook, name='hook_setup'),
     url(r'^pullrequest$', views.hook_pullrequest, name='hook_pullrequest'),
 ]

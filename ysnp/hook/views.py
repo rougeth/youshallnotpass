@@ -13,8 +13,8 @@ from . import tasks
 from .models import Repo
 
 
-def setup_hook(request, owner, repo):
-    repo = Repo.objects.get(owner=owner, name=repo)
+def setup_hook(request, hash):
+    repo = Repo.objects.get(hash=hash)
     tasks.setup_hook.delay(request.user.id, repo.id)
 
     return HttpResponse('configured')

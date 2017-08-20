@@ -1,7 +1,10 @@
 from django.db import models
 
+from utils.models import HashedAutoField
+
 
 class Repo(models.Model):
+    hash = HashedAutoField(unique=True)
     name = models.CharField(max_length=255)
     owner = models.CharField(max_length=255)
     users = models.ManyToManyField('account.User', related_name='repos')
