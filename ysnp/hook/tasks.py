@@ -59,6 +59,9 @@ def setup_hook(user_id, repo_id):
 
     user = User.objects.get(id=user_id)
     repo = Repo.objects.get(id=repo_id)
+    if repo.hook_activated:
+        logger.info('Repository hook already activated')
+        return
 
     logger.info('Setup Hook for %s' % repo.full_name)
 

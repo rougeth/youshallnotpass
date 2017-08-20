@@ -3,19 +3,28 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    <div class="col">
     {% if not user.github_synced_at %}
-    Wait a minute, we're getting your repositories :)
-
+      Wait a minute, we're getting your repositories :)
     {% else %}
-
-    updated at: {{ user.github_synced_at }}
-
-    <url>
-    {% for repo in repos %}
-    <li>{{ repo.full_name }} <a href='{% url 'hook_setup' github_id=repo.github_id%}'>active</a></li>
-    {% endfor%}
-    </url>
+      <h6>Last update at: {{ user.github_synced_at }}</h6>
     {% endif %}
+    </div>
   </div>
+
+  {% if user.github_synced_at %}
+  <div class="row">
+    <div class="col">
+      <ul>
+      {% for repo in repos %}
+        {% if repo.hook_active %}
+        <li><em>{{ repo.full_name }}</em> activated</li>
+        {% else %}
+        <li>{{ repo.full_name }} (<a href='{% url 'hook_setup' github_id=repo.github_id%}'>activate</a>)</li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+  </div>
+  {% endif %}
 </div>
 {% endblock content %}

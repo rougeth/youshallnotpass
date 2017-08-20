@@ -40,9 +40,9 @@ def sync_github_repos(user_id):
             repo = Repo(
                 github_id=user_repo['id'],
                 owner=user_repo['owner']['login'],
-                name=user_repo['name'])
+                name=user_repo['name'],
+                is_private=user_repo['private'])
 
-        repo.private = user_repo['private']
         repo.updated_at = user_repo['updated_at']
         repo.save()
         repo.users.add(user)

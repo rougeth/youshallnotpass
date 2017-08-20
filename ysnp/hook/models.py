@@ -7,7 +7,8 @@ class Repo(models.Model):
     github_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=255)
     owner = models.CharField(max_length=255)
-    private = models.BooleanField(default=False)
+    is_owner = models.BooleanField(default=False)
+    is_private = models.BooleanField(default=False)
     updated_at = models.DateTimeField()
 
     users = models.ManyToManyField('account.User', related_name='repos')
