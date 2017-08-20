@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from account.models import User
 
@@ -13,6 +14,7 @@ from . import tasks
 from .models import Repo
 
 
+@login_required
 def setup_hook(request, hash):
     repo = Repo.objects.get(hash=hash)
     tasks.setup_hook.delay(request.user.id, repo.id)
