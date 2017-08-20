@@ -1,69 +1,18 @@
+{% extends 'base.html' %}
 
-<html>
-  <head>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <style>
-      body {
-        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-      }
-
-      .container {
-        display: flex;
-        justify-content: center;
-        margin-top: 80px;
-      }
-      .link {
-        font-size: 20px;
-        text-decoration: none;
-        color: black;
-        text-align: center;
-      }
-      .link a {
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        padding: 12px 26px;
-        text-decoration: none;
-        color: black;
-      }
-      .link i {
-        text-align: left;
-        margin-right: 20px;
-      }
-
-      .ysnp {
-        color: #F83E3E;
-        font-size: 48px;
-        text-transform: uppercase;
-        width: 170px;
-        margin-right: 20px;
-      }
-
-      .description {
-        color: #4A4A4A;
-        font-size: 48px;
-        width: 480px;
-        font-weight: 200;
-      }
-
-    </style>
-
-  </head>
-
-  <body>
-    <div class='container'>
-      <div class='ysnp'><strong>Y</strong>ou <strong>s</strong>hall <strong>n</strong>ot <strong>p</strong>ass!</div>
-      <div class='description'>Github webhook that blocks pull requests with less than two reviews.</div>
+{% block content %}
+<div class="container home">
+  <div class="row">
+    <div class='col-12 col-md ysnp'><strong>Y</strong>ou <strong>s</strong>hall <strong>n</strong>ot <strong>p</strong>ass!</div>
+    <div class='col-12 col-md description'>Github webhook that blocks pull requests with less than two reviews.</div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="link">
+      <a href="{% url 'social:begin' 'github' %}">
+        <i class="fa fa-github" aria-hidden="true"></i>
+        Github Login
+      </a>
     </div>
-    <div class='container'>
-      <div class="link">
-        <a href="{% url 'social:begin' 'github' %}">
-          <i class="fa fa-github" aria-hidden="true"></i>
-          Github Login
-        </a>
-      </div>
-    </div>
-
-  </body>
-
-</html>
+  </div>
+</div>
+{% endblock content %}

@@ -1,13 +1,21 @@
-{% if not user.github_synced_at %}
-Wait a minute, we're getting your repositories :)
+{% extends 'base.html' %}
 
-{% else %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% if not user.github_synced_at %}
+    Wait a minute, we're getting your repositories :)
 
-updated at: {{ user.github_synced_at }}
+    {% else %}
 
-<url>
-{% for repo in repos %}
-<li>{{ repo.full_name }} <a href='{% url 'hook_setup' github_id=repo.github_id%}'>active</a></li>
-{% endfor%}
-</url>
-{% endif %}
+    updated at: {{ user.github_synced_at }}
+
+    <url>
+    {% for repo in repos %}
+    <li>{{ repo.full_name }} <a href='{% url 'hook_setup' github_id=repo.github_id%}'>active</a></li>
+    {% endfor%}
+    </url>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
