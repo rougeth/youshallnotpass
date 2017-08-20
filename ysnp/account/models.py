@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=254, unique=True)
     name = models.CharField(max_length=250)
-    username = models.CharField(max_length=250)
+    username = models.CharField(max_length=250, unique=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 

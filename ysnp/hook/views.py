@@ -15,8 +15,8 @@ from .models import Repo
 
 
 @login_required
-def setup_hook(request, hash):
-    repo = Repo.objects.get(hash=hash)
+def setup_hook(request, github_id):
+    repo = Repo.objects.get(github_id=github_id)
     tasks.setup_hook.delay(request.user.id, repo.id)
 
     return HttpResponse('configured')
