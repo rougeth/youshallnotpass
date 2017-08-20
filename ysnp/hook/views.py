@@ -9,6 +9,8 @@ from django.conf import settings
 
 from account.models import User
 
+from .tasks import check_pr_reviews
+
 
 def setup_hook(request, username, repo):
     url = '{}/repos/{}/{}/hooks'.format(settings.GITHUB_API_URL, username,
@@ -62,17 +64,17 @@ def update_pr_state(user, repo, sha, state):
 
 @csrf_exempt
 def hook_pullrequest(request):
-    data = json.loads(request.body)
+    github_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
 
+    if github_event == 'ping':
+        return HttpResponse('pong')
+
+    if github_event not in ['pull_request', 'pull_request_view']:
+        return HttpResponse("I don't what to do :/")
+
+    data = json.loads(request.body)
     user = User.objects.get(username=data['sender']['login'])
 
-    pull_request = data['pull_request']
-    repo = pull_request['head']['repo']['full_name']
+    check_pr_reviews.delay(user.id, data['pull_request'])
 
-    reviews = get_reviews(user, repo, pull_request['number'])
-
-    state = 'success' if len(reviews) >= 2 else 'failure'
-
-    update_pr_state(user, repo, pull_request['head']['sha'], state)
-
-    return HttpResponse('working')
+    return HttpResponse('ysnp')
