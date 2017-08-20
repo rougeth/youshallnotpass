@@ -1,7 +1,13 @@
-repos:
+{% if not user.github_synced_at %}
+Wait a minute, we're getting your repositories :)
+
+{% else %}
+
+updated at: {{ user.github_synced_at }}
 
 <url>
 {% for repo in repos %}
 <li>{{ repo.full_name }} <a href='{% url 'hook_setup' hash=repo.hash %}'>active</a></li>
 {% endfor%}
 </url>
+{% endif %}
