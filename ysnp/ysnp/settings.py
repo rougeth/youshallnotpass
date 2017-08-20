@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = 'account_login'
+LOGIN_URL = 'webapp_home'
 LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = '/repos'
 
