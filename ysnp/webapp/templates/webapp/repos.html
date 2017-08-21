@@ -17,7 +17,7 @@
     <div class="col">
       <ul>
       {% for repo in repos %}
-        {% if repo.hook_active %}
+        {% if repo.hook_activated %}
         <li><em>{{ repo.full_name }}</em> activated</li>
         {% else %}
         <li>{{ repo.full_name }} (<a href='{% url 'hook_setup' github_id=repo.github_id%}'>activate</a>)</li>

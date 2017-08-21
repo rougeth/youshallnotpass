@@ -85,6 +85,6 @@ def setup_hook(user_id, repo_id):
         logger.info('Error: %s' % hook)
         return
 
-    repo.hook_active = True
+    repo.hook_activated = True
     repo.hook_id = hook['id']
     repo.save()

@@ -11,5 +11,6 @@ def home(request):
 
 @login_required
 def repos(request):
-    repos = request.user.repos.order_by('owner', '-updated_at').all()
+    repos = request.user.repos.order_by('-hook_activated', 'owner',
+                                        '-updated_at').all()
     return render(request, 'webapp/repos.html', {'repos': repos})

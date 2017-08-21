@@ -2,11 +2,12 @@ import json
 
 import requests
 
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from account.models import User
 
@@ -17,9 +18,11 @@ from .models import Repo
 @login_required
 def setup_hook(request, github_id):
     repo = Repo.objects.get(github_id=github_id)
-    tasks.setup_hook.delay(request.user.id, repo.id)
+    if repo.hook_activated:
+        return redirect(reverse('webapp_repos'))
 
-    return HttpResponse('configured')
+    tasks.setup_hook.delay(request.user.id, repo.id)
+    return HttpResponse('The webhook is being activated...')
 
 
 @csrf_exempt

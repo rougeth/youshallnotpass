@@ -12,7 +12,7 @@ class Repo(models.Model):
     updated_at = models.DateTimeField()
 
     users = models.ManyToManyField('account.User', related_name='repos')
-    hook_active = models.BooleanField(default=False)
+    hook_activated = models.BooleanField(default=False)
     hook_id = models.CharField(max_length=255, blank=True)
 
     class Meta:
