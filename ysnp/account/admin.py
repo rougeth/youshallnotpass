@@ -6,7 +6,6 @@ from django.utils.translation import ugettext as _
 from account.forms import UserChangeForm, UserCreationForm
 from account.models import User
 
-
 PASSWORD_DONT_MATCH = _("Passwords don't match!")
 
 

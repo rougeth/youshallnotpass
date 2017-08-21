@@ -1,0 +1,14 @@
+[run]
+branch = True
+include =
+    ysnp/account/*
+    ysnp/hook/*
+omit =
+    **/tests/**
+    **/migrations/**
+    */admin.py
+    ysnp/wsgi.py
+
+[report]
+show_missing = True
+

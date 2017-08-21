@@ -5,6 +5,7 @@ from celery.utils.log import get_task_logger
 
 from account.models import User
 from ysnp.celery import app
+
 from .models import Repo
 
 logger = get_task_logger(__name__)
@@ -32,7 +33,7 @@ def check_pr_reviews(user_id, pull_request):
     reviews = requests.get(url, headers=user.github_headers).json()
 
     approved_reviews = len([review for review in reviews
-                            if review['state'] == 'APPROVED' ])
+                            if review['state'] == 'APPROVED'])
 
     # The second step it to mark the state of the PR as `success` if it
     # has more or equal to two approved reviews or otherwise as

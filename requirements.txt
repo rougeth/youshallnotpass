@@ -1,0 +1,14 @@
+django
+requests
+python-decouple
+social-auth-app-django
+celery
+
+# Dev
+ipython
+ipdb
+
+# Tests
+coverage
+isort
+flake8

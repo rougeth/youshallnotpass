@@ -8,4 +8,3 @@ from .tasks import sync_github_repos
 def sync_github(sender, instance, created, **kwargs):
     if created:
         sync_github_repos.delay(instance.user_id)
-

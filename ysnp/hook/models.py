@@ -1,7 +1,5 @@
 from django.db import models
 
-from utils.models import HashedAutoField
-
 
 class Repo(models.Model):
     github_id = models.IntegerField(unique=True)

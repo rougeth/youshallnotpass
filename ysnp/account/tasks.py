@@ -4,10 +4,10 @@ from django.utils.timezone import now
 import requests
 from celery.utils.log import get_task_logger
 
-from ysnp.celery import app
 from hook.models import Repo
-from .models import User
+from ysnp.celery import app
 
+from .models import User
 
 logger = get_task_logger(__name__)
 
