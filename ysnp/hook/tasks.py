@@ -6,7 +6,7 @@ from celery.utils.log import get_task_logger
 from account.models import User
 from ysnp.celery import app
 
-from .models import Repo
+from .models import Hook
 
 logger = get_task_logger(__name__)
 
@@ -59,14 +59,15 @@ def setup_hook(user_id, repo_id):
     ''' Setup webhook for a specific repository'''
 
     user = User.objects.get(id=user_id)
-    repo = Repo.objects.get(id=repo_id)
-    if repo.hook_activated:
+    hook = Hook.objects.get(id=repo_id)
+    if hook.activated:
         logger.info('Repository hook already activated')
         return
 
     logger.info('Setup Hook for %s' % repo.full_name)
 
-    url = '{}/repos/{}/hooks'.format(settings.GITHUB_API_URL, repo.full_name)
+    url = '{}/repos/{}/hooks'.format(settings.GITHUB_API_URL,
+                                     hook.repo_full_name)
 
     data = {
         'name': 'web',
@@ -78,14 +79,13 @@ def setup_hook(user_id, repo_id):
         'active': True,
     }
     response = requests.post(url, json=data, headers=user.github_headers)
-    hook = response.json()
 
     logger.info('Status code: %s' % response.status_code)
 
     if response.status_code != 201:
-        logger.info('Error: %s' % hook)
+        logger.info('Error: %s' % response.json())
         return
 
-    repo.hook_activated = True
-    repo.hook_id = hook['id']
-    repo.save()
+    hook.activated = True
+    hook.github_id = hook['id']
+    hook.save()

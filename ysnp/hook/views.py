@@ -9,16 +9,16 @@ from django.views.decorators.csrf import csrf_exempt
 from account.models import User
 
 from . import tasks
-from .models import Repo
+from .models import Hook
 
 
 @login_required
 def setup_hook(request, github_id):
-    repo = Repo.objects.get(github_id=github_id)
-    if repo.hook_activated:
+    hook = Hook.objects.get(github_id=github_id)
+    if hook.activated:
         return redirect(reverse('webapp_repos'))
 
-    tasks.setup_hook.delay(request.user.id, repo.id)
+    tasks.setup_hook.delay(request.user.id, hook.id)
     return HttpResponse('The webhook is being activated...')
 
 

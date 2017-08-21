@@ -4,7 +4,7 @@ from django.utils.timezone import now
 import requests
 from celery.utils.log import get_task_logger
 
-from hook.models import Repo
+from hook.models import Hook
 from ysnp.celery import app
 
 from .models import User
@@ -35,17 +35,16 @@ def sync_github_repos(user_id):
     # used to show repository list on /repos page.
     for user_repo in user_repos:
         try:
-            repo = Repo.objects.get(github_id=user_repo['id'])
-        except Repo.DoesNotExist:
-            repo = Repo(
-                github_id=user_repo['id'],
-                owner=user_repo['owner']['login'],
-                name=user_repo['name'],
-                is_private=user_repo['private'])
+            hook = Hook.objects.get(repo_github_id=user_repo['id'])
+        except Hook.DoesNotExist:
+            hook = Hook(
+                repo_github_id=user_repo['id'],
+                repo_owner=user_repo['owner']['login'],
+                repo_name=user_repo['name'])
 
-        repo.updated_at = user_repo['updated_at']
-        repo.save()
-        repo.users.add(user)
+        hook.repo_updated_at = user_repo['updated_at']
+        hook.save()
+        hook.users.add(user)
 
     user.github_synced_at = now()
     user.save()
