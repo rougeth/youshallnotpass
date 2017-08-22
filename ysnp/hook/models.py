@@ -1,16 +1,26 @@
 from django.db import models
 
 
-class Hook(models.Model):
-    repo_github_id = models.IntegerField(unique=True)
-    repo_owner = models.CharField(max_length=255)
-    repo_name = models.CharField(max_length=255)
-    repo_updated_at = models.DateTimeField()
+class Repo(models.Model):
+    github_id = models.IntegerField(unique=True)  # Github ID
+    owner = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    updated_at = models.DateTimeField()
+    users = models.ManyToManyField('account.User', related_name='repos')
 
-    users = models.ManyToManyField('account.User', related_name='hooks')
-    activated = models.BooleanField(default=False)
-    github_id = models.CharField(max_length=255, blank=True)
+    class Meta:
+        unique_together = (('owner', 'name'),)
 
     @property
-    def repo_full_name(self):
-        return '{}/{}'.format(self.repo_owner, self.repo_name)
+    def full_name(self):
+        return '{}/{}'.format(self.owner, self.name)
+
+    @property
+    def has_hooks(self):
+        return bool(self.hooks.count())
+
+
+class Hook(models.Model):
+    github_id = models.IntegerField(unique=True)
+    repo = models.ForeignKey(Repo, related_name='hooks')
+    is_active = models.BooleanField(default=False)

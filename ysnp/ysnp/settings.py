@@ -158,3 +158,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+try:
+    from .localsettings import *  # noqa
+except ImportError:
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("once")
+        warnings.warn('Could not import localsettings', ImportWarning)

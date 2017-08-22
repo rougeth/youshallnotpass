@@ -2,23 +2,16 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from account.models import User
 
 from . import tasks
-from .models import Hook
 
 
 @login_required
-def setup_hook(request, github_id):
-    hook = Hook.objects.get(github_id=github_id)
-    if hook.activated:
-        return redirect(reverse('webapp_repos'))
-
-    tasks.setup_hook.delay(request.user.id, hook.id)
+def setup_hook(request, repo_id):
+    tasks.setup_hook.delay(request.user.id, repo_id)
     return HttpResponse('The webhook is being activated...')
 
 

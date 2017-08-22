@@ -8,6 +8,6 @@ def home(request):
 
 @login_required
 def repos(request):
-    hooks = request.user.hooks.order_by('-activated', 'repo_owner',
-                                        '-repo_updated_at').all()
-    return render(request, 'webapp/repos.html', {'hooks': hooks})
+    qs = request.user.repos.order_by('owner', '-updated_at')
+    repos = qs.prefetch_related('hooks').all()
+    return render(request, 'webapp/repos.html', {'repos': repos})
