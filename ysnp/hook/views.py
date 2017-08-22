@@ -6,10 +6,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from account.models import User
-
 from . import tasks
 from .models import Repo
+
+GITHUB_EVENTS = {
+    'pull_request': 'opened',
+    'pull_request_review': 'submitted',
+}
 
 
 @login_required
@@ -34,17 +37,20 @@ def setup_hook(request, repo_id):
 
 @csrf_exempt
 def hook_pullrequest(request):
-    github_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
+    gh_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
 
-    if github_event == 'ping':
+    if gh_event == 'ping':
         return HttpResponse('pong')
 
-    if github_event not in ['pull_request', 'pull_request_view']:
+    data = json.loads(request.body)
+    action = data['action']
+    if (gh_event not in GITHUB_EVENTS.keys() or
+            action != GITHUB_EVENTS[gh_event]):
         return HttpResponse("I don't what to do :/")
 
-    data = json.loads(request.body)
-    user = User.objects.get(username=data['sender']['login'])
+    pr = data['pull_request']
+    repo = Repo.objects.get(github_id=pr['head']['repo']['id'])
 
-    tasks.check_pr_reviews.delay(user.id, data['pull_request'])
+    tasks.check_pr_reviews.delay(repo.users.first().id, pr)
 
     return HttpResponse('ysnp')

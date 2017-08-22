@@ -40,7 +40,7 @@ def check_pr_reviews(user_id, pull_request):
     # `failure`.
 
     # `target_url` must be updated! It's a joke!
-    state = 'success' if approved_reviews > 2 else 'failure'
+    state = 'success' if approved_reviews >= 2 else 'failure'
     data = {
         'state': state,
         'description': STATES_DESCRIPTIONS[state],
@@ -72,7 +72,7 @@ def setup_hook(user_id, repo_id):
     data = {
         'name': 'web',
         'config': {
-            'url': 'https://ec49244a.ngrok.io/hook/pullrequest',
+            'url': 'https://075588d6.ngrok.io/hook/pullrequest',
             'content_type': 'json',
         },
         'events': ['pull_request', 'pull_request_review'],
