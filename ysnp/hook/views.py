@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from . import tasks
 from .models import Repo
 
-GITHUB_EVENTS = {
+GH_EVENTS = {
     'pull_request': 'opened',
     'pull_request_review': 'submitted',
 }
@@ -37,15 +37,21 @@ def setup_hook(request, repo_id):
 
 @csrf_exempt
 def hook_pullrequest(request):
+    '''
+    Responds requests from Github trigged by pull_request and
+    pull_request_review events.
+    https://developer.github.com/v3/activity/events/types/
+    '''
+
+    data = json.loads(request.body)
+
     gh_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
+    gh_action = data['action']
 
     if gh_event == 'ping':
         return HttpResponse('pong')
 
-    data = json.loads(request.body)
-    action = data['action']
-    if (gh_event not in GITHUB_EVENTS.keys() or
-            action != GITHUB_EVENTS[gh_event]):
+    if gh_event not in GH_EVENTS.keys() or gh_action != GH_EVENTS[gh_event]:
         return HttpResponse("I don't what to do :/")
 
     pr = data['pull_request']
