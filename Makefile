@@ -11,7 +11,14 @@ test:
 	coverage report #--fail-under=100
 	@echo ""
 
-run:
-	@echo "--> Running YSNP"
-	python ysnp/manage.py runserver 0.0.0.0:8000
+
+build-local:
+	@echo "--> Build compose"
+	docker-compose -f local.yml build
+	@echo ""
+
+
+run-local:
+	@echo "--> Running compose"
+	docker-compose -f local.yml up
 	@echo ""
