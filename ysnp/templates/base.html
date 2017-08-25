@@ -50,6 +50,9 @@
       font-size: 48px;
       font-weight: 200;
     }
+    .list li {
+        display: none;
+    }
 
     @media (min-width: 768px) {
       .ysnp {
@@ -62,6 +65,10 @@
 
   {% block content %}
   {% endblock content %}
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  {% block script %}
+  {% endblock script  %}
 
 </body>
 </html>

@@ -7,6 +7,7 @@
     {% if not user.github_synced_at %}
       Wait a minute, we're getting your repositories :)
     {% else %}
+      <input type="text" class="filter" />
       <h6>Last update at: {{ user.github_synced_at }}</h6>
     {% endif %}
     </div>
@@ -15,7 +16,7 @@
   {% if user.github_synced_at %}
   <div class="row">
     <div class="col">
-      <ul>
+      <ul class="list">
       {% for repo in repos %}
       {% if repo.has_hooks %}
         <li><em>{{ repo.full_name }} (activated)</em></li>
@@ -28,3 +29,16 @@
   {% endif %}
 </div>
 {% endblock content %}
+
+{% block script %}
+<script>
+$('.list li').slice(0, 5).show();
+$('.filter').keyup(function() {
+  var $listItems = $('.list li');
+  var re = new RegExp($(this).val(), "i");
+    $listItems.hide().filter(function() {
+      return re.test($(this).text());
+    }).slice(0, 5).show();
+});
+</script>
+{% endblock script %}
