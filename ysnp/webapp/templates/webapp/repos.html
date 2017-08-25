@@ -1,14 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container repos">
+  <div class="row">
+    <div class="col">
+      <div class="ysnp-2">YSNP!</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>In development.</strong> YSNP is not even in beta yet. Got a bug? Send it to us.
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
     {% if not user.github_synced_at %}
       Wait a minute, we're getting your repositories :)
     {% else %}
-      <input type="text" class="filter" />
-      <h6>Last update at: {{ user.github_synced_at }}</h6>
+      <input type="text" class="input-filter" placeholder="Search your repository..." />
+      <span class="last-update">Update at: {{ user.github_synced_at }}</span>
     {% endif %}
     </div>
   </div>
@@ -16,12 +31,12 @@
   {% if user.github_synced_at %}
   <div class="row">
     <div class="col">
-      <ul class="list">
+      <ul class="list-group list">
       {% for repo in repos %}
       {% if repo.has_hooks %}
-        <li><em>{{ repo.full_name }} (activated)</em></li>
+        <li class="list-group-item disabled">{{ repo.full_name }} <span>activated</span></li>
       {% else %}
-        <li>{{ repo.full_name }} (<a href='{% url 'hook_setup' repo_id=repo.github_id %}'>activate</a>)</li>
+        <li class="list-group-item">{{ repo.full_name }} <a href='{% url 'hook_setup' repo_id=repo.github_id %}'>activate</a></li>
       {% endif %}
       {% endfor %}
       </ul>
@@ -32,13 +47,13 @@
 
 {% block script %}
 <script>
-$('.list li').slice(0, 5).show();
-$('.filter').keyup(function() {
+$('.list li').slice(0, 10).show();
+$('.input-filter').keyup(function() {
   var $listItems = $('.list li');
   var re = new RegExp($(this).val(), "i");
     $listItems.hide().filter(function() {
       return re.test($(this).text());
-    }).slice(0, 5).show();
+    }).slice(0, 10).show();
 });
 </script>
 {% endblock script %}
