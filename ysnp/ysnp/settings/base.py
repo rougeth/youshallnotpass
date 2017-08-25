@@ -13,7 +13,17 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 import dj_database_url
-from decouple import config
+import environ
+
+# Load operating system environment variables and then prepare to use them
+env = environ.Env()
+
+ROOT_DIR = environ.Path(__file__) - 4
+env_file = str(ROOT_DIR.path('.env'))
+print('Loading : {}'.format(env_file))
+env.read_env(env_file)
+print('The .env file has been loaded. See base.py for more information')
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,12 +33,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(m9mn*qxuzqgw#unr3x#9zvpu3c)#%$oo^=0yva6f0onz26-4l'
+SECRET_KEY = env('SECRET_KEY', default='ysnp-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['youshallnotpass.io'])
 
 
 # Application definition
@@ -70,6 +80,7 @@ TEMPLATES = [
         ],
         'APP_DIRS': True,
         'OPTIONS': {
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -86,9 +97,8 @@ WSGI_APPLICATION = 'ysnp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASE_URL = config('DATABASE_URL', default='sqlite:///db.sqlite3')
 DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL),
+    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3'),
 }
 
 
@@ -115,8 +125,8 @@ LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = '/repos'
 
 GITHUB_API_URL = 'https://api.github.com'
-SOCIAL_AUTH_GITHUB_KEY = config('GITHUB_KEY', default='')
-SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_SECRET', default='')
+SOCIAL_AUTH_GITHUB_KEY = env('GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = env('GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['repo', 'admin:repo_hook']
 
 AUTH_USER_MODEL = 'account.User'
@@ -160,14 +170,4 @@ STATIC_URL = '/static/'
 
 
 # Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_URL')
-
-
-
-try:
-    from .localsettings import *  # noqa
-except ImportError:
-    import warnings
-    with warnings.catch_warnings():
-        warnings.simplefilter("once")
-        warnings.warn('Could not import localsettings', ImportWarning)
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')

@@ -9,6 +9,7 @@ services:
       - .:/ysnp
     environment:
       - POSTGRES_USER=ysnp
+      - DJANGO_READ_DOT_ENV_FILE=true
     depends_on:
       - rabbitmq
       - postgres

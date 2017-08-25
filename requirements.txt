@@ -1,7 +1,7 @@
 celery
 dj-database-url
 django
-python-decouple
+django-environ
 requests
 social-auth-app-django
 psycopg2
@@ -15,3 +15,6 @@ ipython
 coverage
 isort
 flake8
+
+# Production
+raven
