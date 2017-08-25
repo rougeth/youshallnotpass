@@ -7,9 +7,19 @@ services:
       dockerfile: ./compose/django/Dockerfile-dev
     volumes:
       - .:/ysnp
+    environment:
+      - POSTGRES_USER=ysnp
+    depends_on:
+      - rabbitmq
+      - postgres
     ports:
       - '8000:8000'
     command: /start-dev.sh
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=ysnp
 
   rabbitmq:
     image: rabbitmq
@@ -20,5 +30,6 @@ services:
     <<: *django
     depends_on:
       - rabbitmq
+      - postgres
     ports: []
     command: /start-celeryworker-dev.sh

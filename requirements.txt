@@ -1,13 +1,15 @@
-django
-requests
-python-decouple
-social-auth-app-django
 celery
+dj-database-url
+django
+python-decouple
+requests
+social-auth-app-django
+psycopg2
 
 # Dev
-ipython
-ipdb
 django-queryinspect
+ipdb
+ipython
 
 # Tests
 coverage

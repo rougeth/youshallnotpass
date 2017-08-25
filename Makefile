@@ -20,5 +20,5 @@ build-local:
 
 run-local:
 	@echo "--> Running compose"
-	docker-compose -f local.yml up
+	docker-compose -f local.yml up -d
 	@echo ""
