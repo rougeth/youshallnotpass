@@ -3,6 +3,7 @@ install:
 	pip install -r requirements.txt
 	@echo ""
 
+
 test:
 	@echo "--> Running YSNP tests"
 	flake8
@@ -13,12 +14,17 @@ test:
 
 
 build-local:
-	@echo "--> Build compose"
+	@echo "--> Building images"
 	docker-compose -f local.yml build
 	@echo ""
 
 
 run-local:
-	@echo "--> Running compose"
+	@echo "--> Running local containers"
 	docker-compose -f local.yml up -d
+	@echo ""
+
+stop-local:
+	@echo "--> Stop local containers"
+	docker-compose -f local.yml stop
 	@echo ""
