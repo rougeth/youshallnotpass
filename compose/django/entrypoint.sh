@@ -6,8 +6,8 @@ cmd="$@"
 # Since docker-compose relies heavily on environment variables itself for configuration, we'd have to define multiple
 # environment variables just to support cookiecutter out of the box. That makes no sense, so this little entrypoint
 # does all this for us.
-export RABBITMQ_URL=amqp://rabbitmq:5672
-export CELERY_BROKER_URL=$RABBITMQ_URL
+export REDIS_URL=redis://redis:6379
+export CELERY_BROKER_URL=$REDIS_URL/0
 
 # the official postgres image uses 'postgres' as default user if not set explictly.
 if [ -z "$POSTGRES_USER" ]; then

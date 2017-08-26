@@ -15,18 +15,17 @@ import os
 import dj_database_url
 import environ
 
+# Build paths inside the project like this: BASE_DIR.path(...)
+BASE_DIR = environ.Path(__file__) - 3
+ROOT_DIR = environ.Path(__file__) - 4
+
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 
-ROOT_DIR = environ.Path(__file__) - 4
 env_file = str(ROOT_DIR.path('.env'))
 print('Loading : {}'.format(env_file))
 env.read_env(env_file)
 print('The .env file has been loaded. See base.py for more information')
-
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +37,7 @@ SECRET_KEY = env('SECRET_KEY', default='ysnp-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['youshallnotpass.io'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 
 # Application definition
@@ -76,7 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            BASE_DIR.path('templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -167,6 +166,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR('static_root')
 
 
 # Celery

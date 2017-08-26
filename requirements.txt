@@ -2,9 +2,10 @@ celery
 dj-database-url
 django
 django-environ
+psycopg2
+redis
 requests
 social-auth-app-django
-psycopg2
 
 # Dev
 django-queryinspect
@@ -17,4 +18,5 @@ isort
 flake8
 
 # Production
+gunicorn
 raven

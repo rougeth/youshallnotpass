@@ -3,31 +3,35 @@ version: '3'
 volumes:
   postgres_data: {}
   postgres_backup: {}
+  caddy: {}
 
 services:
   django: &django
     build:
       context: .
-      dockerfile: ./compose/django/Dockerfile-dev
-    volumes:
-      - .:/ysnp
-    environment:
-      - POSTGRES_USER=ysnp
-      - DJANGO_READ_DOT_ENV_FILE=true
+      dockerfile: ./compose/django/Dockerfile
     depends_on:
-      - redis
       - postgres
-    ports:
-      - '8000:8000'
-    command: /start-dev.sh
+      - redis
+    command: /gunicorn.sh
+    env_file: .env
 
   postgres:
-    build: ./compose/postgres
+    image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
-    environment:
-      - POSTGRES_USER=ysnp
+    env_file: .env
+
+  caddy:
+    build: ./compose/caddy
+    depends_on:
+      - django
+    ports:
+      - "0.0.0.0:80:8000"
+      - "0.0.0.0:443:4430"
+    volumes:
+      - caddy:/root/.caddy
     env_file: .env
 
   redis:
