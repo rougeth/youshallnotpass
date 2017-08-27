@@ -39,4 +39,6 @@ services:
       - redis
       - postgres
     ports: []
+    environment:
+      - POSTGRES_USER=ysnp
     command: /start-celeryworker.sh

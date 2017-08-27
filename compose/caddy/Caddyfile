@@ -1,5 +1,5 @@
 www.{%DOMAIN_NAME%} {
-    redir https://youshallnotpass.io
+    redir https://sandbox.rgth.co
 }
 
 {%DOMAIN_NAME%} {
