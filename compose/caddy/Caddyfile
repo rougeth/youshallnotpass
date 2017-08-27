@@ -1,8 +1,5 @@
-www.{%DOMAIN_NAME%} {
-    redir https://sandbox.rgth.co
-}
-
 {%DOMAIN_NAME%} {
+
     proxy / django:5000 {
         header_upstream Host {host}
         header_upstream X-Real-IP {remote}
