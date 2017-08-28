@@ -3,10 +3,10 @@ www.{%DOMAIN_NAME%} {
 }
 
 {%DOMAIN_NAME%} {
+    root /ysnp/ysnp/public/
     proxy / django:5000 {
-        header_upstream Host {host}
-        header_upstream X-Real-IP {remote}
-        header_upstream X-Forwarded-Proto {scheme}
+        transparent
+        except /static /media
     }
     log stdout
     errors stdout
