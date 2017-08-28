@@ -28,8 +28,8 @@ services:
     depends_on:
       - django
     ports:
-      - "0.0.0.0:80:8000"
-      - "0.0.0.0:443:4430"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
     volumes:
       - caddy:/root/.caddy
     env_file: .env
