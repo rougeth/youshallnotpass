@@ -37,8 +37,8 @@ SECRET_KEY = env('SECRET_KEY', default='ysnp-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
-DOMAIN_NAME = env.list('DOMAIN_NAME')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['youshallnotpass.review'])
+DOMAIN_NAME = env('DOMAIN_NAME')
 
 
 # Application definition
