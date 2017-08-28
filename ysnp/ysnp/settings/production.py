@@ -1,3 +1,5 @@
+import logging
+
 from .base import *
 
 
@@ -5,7 +7,7 @@ WHITENOISE_MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware', ]
 MIDDLEWARE = WHITENOISE_MIDDLEWARE + MIDDLEWARE
 
 # Sentry
-INSTALLED_APPS += ['reven.contrib.django.raven_compact',]
+INSTALLED_APPS += ['raven.contrib.django.raven_compact',]
 
 # https://docs.sentry.io/clients/python/integrations/django/#message-references
 RAVEN_MIDDLEWARE = [
