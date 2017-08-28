@@ -72,7 +72,7 @@ def setup_hook(user_id, repo_id):
     data = {
         'name': 'web',
         'config': {
-            'url': 'https://075588d6.ngrok.io/hook/pullrequest',
+            'url': 'https://{}/hook/pullrequest'.format(settings.DOMAIN_NAME),
             'content_type': 'json',
         },
         'events': ['pull_request', 'pull_request_review'],
