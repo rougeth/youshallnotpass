@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=254, unique=True)
-    name = models.CharField(max_length=250)
     username = models.CharField(max_length=250, unique=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -29,18 +28,16 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        if self.name:
-            return self.name
         return self.email
 
     def get_username(self):
-        return self.email.lower()
+        return self.username
 
     def get_short_name(self):
-        return self.name.split()[0]
+        return self.get_username()
 
     def get_full_name(self):
-        return self.name
+        return self.get_username()
 
     def has_perm(self, perm, obj=None):
         return True
