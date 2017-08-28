@@ -20,3 +20,4 @@ flake8
 # Production
 gunicorn
 raven
+whitenoise

@@ -3,10 +3,8 @@ www.{%DOMAIN_NAME%} {
 }
 
 {%DOMAIN_NAME%} {
-    root /ysnp/ysnp/public/
     proxy / django:5000 {
         transparent
-        except /static /media
     }
     log stdout
     errors stdout

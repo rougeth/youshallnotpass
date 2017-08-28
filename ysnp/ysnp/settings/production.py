@@ -2,6 +2,14 @@ import logging
 
 from .base import *
 
+
+# Whitenoite serving static files
+# http://whitenoise.evans.io/en/stable/django.html
+MIDDLEWARE += [
+  'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
