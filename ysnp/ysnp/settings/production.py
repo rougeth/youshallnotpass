@@ -10,6 +10,8 @@ MIDDLEWARE += [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

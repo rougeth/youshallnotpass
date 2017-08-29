@@ -46,11 +46,10 @@ def hook_pullrequest(request):
     data = json.loads(request.body)
 
     gh_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
-    gh_action = data['action']
-
     if gh_event == 'ping':
         return HttpResponse('pong')
 
+    gh_action = data.get('action')
     if gh_event not in GH_EVENTS.keys() or gh_action != GH_EVENTS[gh_event]:
         return HttpResponse("I don't what to do :/")
 

@@ -4,7 +4,7 @@ from .base import *
 DEBUG = env.bool('DEBUG', default=True)
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # Query inspector
 # https://github.com/dobarkod/django-queryinspect

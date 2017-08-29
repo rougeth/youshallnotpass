@@ -128,7 +128,6 @@ GITHUB_API_URL = 'https://api.github.com'
 SOCIAL_AUTH_GITHUB_KEY = env('GITHUB_KEY')
 SOCIAL_AUTH_GITHUB_SECRET = env('GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['repo', 'admin:repo_hook']
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 AUTH_USER_MODEL = 'account.User'
 
