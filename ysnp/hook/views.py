@@ -43,7 +43,7 @@ def hook_pullrequest(request):
     https://developer.github.com/v3/activity/events/types/
     '''
 
-    data = json.loads(request.body)
+    data = json.loads(request.body.decode('utf-8'))
 
     gh_event = request.META.get('HTTP_X_GITHUB_EVENT', '')
     if gh_event == 'ping':
