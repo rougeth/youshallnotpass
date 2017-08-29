@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container home">
-  <div class="row">
-    <div class='col-12 col-md ysnp'><strong>Y</strong>ou <strong>s</strong>hall <strong>n</strong>ot <strong>p</strong>ass!</div>
-    <div class='col-12 col-md description'>Github webhook that blocks pull requests with less than two reviews.</div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="link">
-      <a href="{% url 'social:begin' 'github' %}">
-        <i class="fa fa-github" aria-hidden="true"></i>
-        Github Login
-      </a>
-    </div>
-  </div>
+<div class="home">
+  <h1>You Shall Not Pass!</h1>
+  <p>Github webhook that blocks pull requests with less than two reviews.</p>
+  <a href="{% url 'social:begin' 'github' %}">Github Login</a>
+  <p class="alert"><strong>In development!</strong> You Shall Not Pass is not even in Beta yet. Got a bug? <a href="#">Let us know!</a></p>
+<pre>
+<span class="gs">(\.</span>   <span class="gc">\</span>      <span class="gs">,/)</span>
+ <span class="gs">\(</span>   <span class="gc">|\</span>     <span class="gs">)/</span>
+ <span class="gc">//\  | \   /\\
+(/ /\_</span><span class="gb">#</span><span class="gs">oo</span><span class="gb">#</span><span class="gc">_/\ \)
+ \/\</span>  <span class="gb">####</span>  <span class="gc">/\/</span>
+      <span class="gb">`##'
+</pre>
 </div>
 {% endblock content %}
