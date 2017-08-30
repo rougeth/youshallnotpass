@@ -1,23 +1,9 @@
-install:
-	@echo "--> Installing YSNP dependencies"
-	pip install -r requirements.txt
-	@echo ""
-
-
-test:
-	@echo "--> Running YSNP tests"
-	flake8
-	isort -c
-	coverage run ysnp/manage.py test ysnp
-	coverage report #--fail-under=100
-	@echo ""
-
 local-build:
 	@echo "--> Building images"
 	docker-compose -f local.yml build
 	@echo ""
 
-local-run:
+local-up:
 	@echo "--> Running local containers"
 	docker-compose -f local.yml up -d
 	@echo ""
@@ -32,22 +18,22 @@ local-logs:
 	docker-compose -f local.yml logs -f
 	@echo ""
 
-prod-build:
+build:
 	@echo "--> Building images"
 	docker-compose -f production.yml build
 	@echo ""
 
-prod-run:
+up:
 	@echo "--> Running production containers"
 	docker-compose -f production.yml up -d
 	@echo ""
 
-prod-down:
+down:
 	@echo "--> Stoping production containers"
 	docker-compose -f production.yml down
 	@echo ""
 
-prod-logs:
+logs:
 	@echo "--> Showing production containers logs"
 	docker-compose -f production.yml logs -f
 	@echo ""
@@ -64,10 +50,4 @@ deploy-django:
 	git pull
 	docker-compose -f production.yml build django celeryworker
 	docker-compose -f production.yml up -d django celeryworker
-	@echo ""
-
-rmcontainers:
-	@echo "--> WARNING: Stoping and removing containers"
-	docker stop `docker ps -aq`
-	docker rm `docker ps -aq`
 	@echo ""
