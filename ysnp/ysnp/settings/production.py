@@ -12,6 +12,10 @@ MIDDLEWARE += [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Social Auth
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+# Sentry
 INSTALLED_APPS += [
     'raven.contrib.django.raven_compat',
 ]
@@ -22,9 +26,6 @@ RAVEN_CONFIG = {
     # release based on the git info.
     'release': raven.fetch_git_sha(str(ROOT_DIR)),
 }
-
-
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 LOGGING = {
     'version': 1,
@@ -68,3 +69,6 @@ LOGGING = {
         },
     },
 }
+
+# Google Analytics
+GOOGLE_ANALYTICS_ID = env('GOOGLE_ANALYTICS_ID', default='')
