@@ -52,11 +52,18 @@ prod-logs:
 	docker-compose -f production.yml logs -f
 	@echo ""
 
-prod-deploy:
+deploy:
 	@echo "--> Deploying"
 	git pull
 	docker-compose -f production.yml build
-	docker-compose -f production.yml restart
+	docker-compose -f production.yml up -d
+	@echo ""
+
+deploy-django:
+	@echo "--> Deploying Django"
+	git pull
+	docker-compose -f production.yml build django celeryworker
+	docker-compose -f production.yml up -d django celeryworker
 	@echo ""
 
 rmcontainers:
