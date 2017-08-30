@@ -1,19 +1,19 @@
-local-build:
+build:
 	@echo "--> Building images"
 	docker-compose -f local.yml build
 	@echo ""
 
-local-up:
+up:
 	@echo "--> Running local containers"
 	docker-compose -f local.yml up -d
 	@echo ""
 
-local-down:
+down:
 	@echo "--> Stoping local containers"
 	docker-compose -f local.yml down
 	@echo ""
 
-local-logs:
+logs:
 	@echo "--> Showing local containers logs"
 	docker-compose -f local.yml logs -f
 	@echo ""
@@ -23,17 +23,17 @@ build:
 	docker-compose -f production.yml build
 	@echo ""
 
-up:
+prod-up:
 	@echo "--> Running production containers"
 	docker-compose -f production.yml up -d
 	@echo ""
 
-down:
+prod-down:
 	@echo "--> Stoping production containers"
 	docker-compose -f production.yml down
 	@echo ""
 
-logs:
+prod-logs:
 	@echo "--> Showing production containers logs"
 	docker-compose -f production.yml logs -f
 	@echo ""
