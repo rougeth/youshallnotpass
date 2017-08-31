@@ -21,16 +21,22 @@ body { font-family: 'Open Sans', sans-serif; }
   margin-bottom: 40px;
 }
 
-.home > a {
+.home div > a {
   display: inline-block;
   text-decoration: none;
   padding: 14px 28px;
-  margin-bottom: 40px;
+  margin: 0 10px 40px 10px;
   background: #4273F2;
   border-radius: 2px;
   box-shadow: 0 3px 0 #2B4892;
   color: #fff;
   font-size: 20px;
+}
+
+.home div > .docs {
+  background: #F5F5F5;
+  box-shadow: 0 3px 0 #E1E1E1;
+  color: #4273F2;
 }
 
 .home .alert {

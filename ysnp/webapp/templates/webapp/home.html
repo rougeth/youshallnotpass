@@ -3,9 +3,12 @@
 {% block content %}
 <div class="home">
   <h1>You Shall Not Pass!</h1>
-  <p>Github webhook that blocks pull requests with less than two reviews.</p>
-  <a href="{% url 'social:begin' 'github' %}">Github Login</a>
-  <p class="alert"><strong>In development!</strong> You Shall Not Pass is not even in Beta yet. Got a bug? <a href="https://github.com/rougeth/youshallnotpass/issues">Let us know!</a></p>
+  <p>We block all pull requests with less than two reviews!</p>
+  <div>
+    <a href="{% url 'social:begin' 'github' %}">Github Login</a>
+    <a class="docs" href="https://github.com/rougeth/youshallnotpass">Docs</a>
+  </div>
+  <p class="alert"><strong>Ready to use and free but</strong> You Shall Not Pass is really really new. Got a bug? <a href="https://github.com/rougeth/youshallnotpass/issues">Let us know!</a></p>
 <pre>
 <span class="gs">(\.</span>   <span class="gc">\</span>      <span class="gs">,/)</span>
  <span class="gs">\(</span>   <span class="gc">|\</span>     <span class="gs">)/</span>
