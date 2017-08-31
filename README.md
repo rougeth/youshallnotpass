@@ -5,3 +5,13 @@
 Github webhook that blocks pull requests with less than two reviews.
 
 https://youshallnotpass.review
+
+
+## How to use
+1. On Github, define a protected branch on you project settings page
+`url: https://github.com/<you>/<your_project/settings/branches`;
+
+2. Mark the flag **Require status checks to pass before merging**;
+3. Goes to [You Shall Not Pass](https://youshallnotpass.review) and activate the webhook for you repository.
+
+Done :)
